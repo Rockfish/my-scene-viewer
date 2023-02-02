@@ -1,8 +1,10 @@
-#![warn(
-missing_debug_implementations,
+// #![warn(
+// missing_debug_implementations,
 // rust_2018_idioms,
 // missing_docs,
-)]
+// )]
+#![allow(dead_code)]
+#![allow(unused_variables)]
 
 // use bevy::log::LogPlugin;
 use bevy::{
@@ -10,6 +12,7 @@ use bevy::{
 };
 
 use crate::camera::*;
+use crate::lights::update_lights;
 use crate::lines::{LineMaterial, setup_cylinders, setup_lines};
 use crate::scene_setup::*;
 
@@ -17,6 +20,7 @@ mod scene_setup;
 mod camera;
 mod lines;
 mod cylinder;
+mod lights;
 
 fn main() {
 

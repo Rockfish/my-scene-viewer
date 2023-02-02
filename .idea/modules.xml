@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/my_scene_viewer.iml" filepath="$PROJECT_DIR$/my_scene_viewer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/my-scene-viewer.iml" filepath="$PROJECT_DIR$/my-scene-viewer.iml" />
     </modules>
   </component>
 </project>
