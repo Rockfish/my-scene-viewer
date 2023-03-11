@@ -26,17 +26,17 @@ pub fn update_lights(
     } else if key_input.just_pressed(KeyCode::Key0) {
         projection_adjustment.z += SCALE_STEP;
     }
-    for (_, mut light) in &mut query {
-        light.shadow_projection.left *= projection_adjustment.x;
-        light.shadow_projection.right *= projection_adjustment.x;
-        light.shadow_projection.bottom *= projection_adjustment.y;
-        light.shadow_projection.top *= projection_adjustment.y;
-        light.shadow_projection.near *= projection_adjustment.z;
-        light.shadow_projection.far *= projection_adjustment.z;
-        if key_input.just_pressed(KeyCode::U) {
-            light.shadows_enabled = !light.shadows_enabled;
-        }
-    }
+    // for (_, mut light) in &mut query {
+    //     light.shadow_projection.left *= projection_adjustment.x;
+    //     light.shadow_projection.right *= projection_adjustment.x;
+    //     light.shadow_projection.bottom *= projection_adjustment.y;
+    //     light.shadow_projection.top *= projection_adjustment.y;
+    //     light.shadow_projection.near *= projection_adjustment.z;
+    //     light.shadow_projection.far *= projection_adjustment.z;
+    //     if key_input.just_pressed(KeyCode::U) {
+    //         light.shadows_enabled = !light.shadows_enabled;
+    //     }
+    // }
 
     if key_input.just_pressed(KeyCode::L) {
         *animate_directional_light = !*animate_directional_light;

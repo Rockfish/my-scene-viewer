@@ -4,6 +4,7 @@
 //! replacing the path as appropriate.
 //! With no arguments it will load the `FieldHelmet` glTF model from the repository assets subdirectory.
 
+use std::f32::consts::PI;
 use bevy::{
     asset::LoadState,
     gltf::Gltf,
@@ -12,6 +13,7 @@ use bevy::{
     render::primitives::{Aabb, Sphere},
     scene::InstanceId,
 };
+use bevy::pbr::CascadeShadowConfigBuilder;
 
 use crate::CameraController;
 
@@ -229,20 +231,43 @@ pub fn setup_scene_after_load(
             let max = aabb.max();
 
             info!("Spawning a directional light");
+            // commands.spawn(DirectionalLightBundle {
+            //     directional_light: DirectionalLight {
+            //         shadow_projection: OrthographicProjection {
+            //             left: min.x,
+            //             right: max.x,
+            //             bottom: min.y,
+            //             top: max.y,
+            //             near: min.z,
+            //             far: max.z,
+            //             ..default()
+            //         },
+            //         shadows_enabled: false,
+            //         ..default()
+            //     },
+            //     ..default()
+            // });
+
+            // directional 'sun' light
             commands.spawn(DirectionalLightBundle {
                 directional_light: DirectionalLight {
-                    shadow_projection: OrthographicProjection {
-                        left: min.x,
-                        right: max.x,
-                        bottom: min.y,
-                        top: max.y,
-                        near: min.z,
-                        far: max.z,
-                        ..default()
-                    },
-                    shadows_enabled: false,
+                    shadows_enabled: true,
                     ..default()
                 },
+                transform: Transform {
+                    translation: Vec3::new(0.0, 2.0, 0.0),
+                    rotation: Quat::from_rotation_x(-PI / 4.),
+                    ..default()
+                },
+                // The default cascade config is designed to handle large scenes.
+                // As this example has a much smaller world, we can tighten the shadow
+                // bounds for better visual quality.
+                cascade_shadow_config: CascadeShadowConfigBuilder {
+                    first_cascade_far_bound: 4.0,
+                    maximum_distance: 10.0,
+                    ..default()
+                }
+                    .into(),
                 ..default()
             });
 

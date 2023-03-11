@@ -38,10 +38,10 @@ fn main() {
         .add_plugins(
             DefaultPlugins
                 .set(WindowPlugin {
-                    window: WindowDescriptor {
+                    primary_window: Some(Window {
                         title: "bevy scene viewer".to_string(),
                         ..default()
-                    },
+                    }),
                     ..default()
                 })
                 .set(AssetPlugin {
@@ -55,8 +55,8 @@ fn main() {
         .add_startup_system(setup_scene)
         .add_startup_system(setup_lines)
         .add_startup_system(setup_cylinders)
-        .add_system_to_stage(CoreStage::PreUpdate, scene_load_check)
-        .add_system_to_stage(CoreStage::PreUpdate, setup_scene_after_load)
+        .add_system(scene_load_check)
+        .add_system(setup_scene_after_load)
         .add_system(update_lights)
         .add_system(camera_controller)
         // .add_system(camera_tracker)
