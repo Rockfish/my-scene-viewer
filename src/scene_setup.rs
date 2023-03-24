@@ -14,8 +14,9 @@ use bevy::{
     scene::InstanceId,
 };
 use bevy::pbr::CascadeShadowConfigBuilder;
+use crate::camera_pan_orbit::spawn_camera;
 
-use crate::CameraController;
+// use crate::CameraController;
 
 // #[derive(Debug, Hash, PartialEq, Eq, Clone, SystemLabel)]
 // struct CameraControllerCheckSystem;
@@ -196,29 +197,31 @@ pub fn setup_scene_after_load(
         let size = (max - min).length();
         let aabb = Aabb::from_min_max(Vec3::from(min), Vec3::from(max));
 
-        info!("Spawning a controllable 3D perspective camera");
+        spawn_camera(&mut commands);
 
-        let mut projection = PerspectiveProjection::default();
-
-        projection.far = projection.far.max(size * 10.0);
-
-        let mut camera_controller = CameraController::default();
-        camera_controller.target = Vec3::from(aabb.center);
-
-        commands.spawn((
-            Camera3dBundle {
-                projection: projection.into(),
-                transform: Transform::from_translation(
-                    Vec3::from(aabb.center) + size * Vec3::new(0.5, 0.25, 0.5),
-                ).looking_at(Vec3::from(aabb.center), Vec3::Y),
-                camera: Camera {
-                    is_active: true,
-                    ..default()
-                },
-                ..default()
-            },
-            camera_controller,
-        ));
+        // info!("Spawning a controllable 3D perspective camera");
+        //
+        // let mut projection = PerspectiveProjection::default();
+        //
+        // projection.far = projection.far.max(size * 10.0);
+        //
+        // let mut camera_controller = CameraController::default();
+        // camera_controller.target = Vec3::from(aabb.center);
+        //
+        // commands.spawn((
+        //     Camera3dBundle {
+        //         projection: projection.into(),
+        //         transform: Transform::from_translation(
+        //             Vec3::from(aabb.center) + size * Vec3::new(0.5, 0.25, 0.5),
+        //         ).looking_at(Vec3::from(aabb.center), Vec3::Y),
+        //         camera: Camera {
+        //             is_active: true,
+        //             ..default()
+        //         },
+        //         ..default()
+        //     },
+        //     camera_controller,
+        // ));
 
         // Spawn a default light if the scene does not have one
         if !scene_handle.has_light {

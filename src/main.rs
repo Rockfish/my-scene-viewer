@@ -12,6 +12,7 @@ use bevy::{
 };
 
 use crate::camera::*;
+use crate::camera_pan_orbit::pan_orbit_camera;
 use crate::lights::update_lights;
 use crate::lines::{LineMaterial, setup_cylinders, setup_lines};
 use crate::scene_setup::*;
@@ -21,6 +22,7 @@ mod camera;
 mod lines;
 mod cylinder;
 mod lights;
+mod camera_pan_orbit;
 
 fn main() {
 
@@ -58,7 +60,7 @@ fn main() {
         .add_system(scene_load_check)
         .add_system(setup_scene_after_load)
         .add_system(update_lights)
-        .add_system(camera_controller)
+        .add_system(pan_orbit_camera)
         // .add_system(camera_tracker)
     ;
 
